@@ -1,0 +1,29 @@
+{
+  "name": "discord-autofeed-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./Structures/index.js",
+  "scripts": {
+    "start": "node ./Structures/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SimpleDiscordBotsJS/Discord-AutoFeed-Bot.git"
+  },
+  "author": "LeonusDH",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SimpleDiscordBotsJS/Discord-AutoFeed-Bot/issues"
+  },
+  "homepage": "https://github.com/SimpleDiscordBotsJS/Discord-AutoFeed-Bot#readme",
+  "dependencies": {
+    "ascii-table3": "^0.7.6",
+    "discord.js": "^13.7.0",
+    "glob": "^8.0.3",
+    "quick.db": "^7.1.3",
+    "rss-parser": "^3.12.0"
+  },
+  "engines": {
+    "node": ">=16.14.2"
+  }
+}

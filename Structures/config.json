@@ -10,19 +10,19 @@
     },
 
     "HABR_FEED": {
-        "ENABLED": true,
+        "ENABLED": false,
 
         "CHANNEL_ID": "ENTER_DISCORD_CHANNEL_ID"
     },
 
     "YOUTUBE_FEED": {
-        "ENABLED": true,
+        "ENABLED": false,
 
         "CHANNEL_ID": "ENTER_DISCORD_CHANNEL_ID"
     },
 
     "TWITCH_FEED": {
-        "ENABLED": true,
+        "ENABLED": false,
 
         "CLIENT_ID": "ENTER_TWITCH_APPLICATIONS_CLIENT_ID",
         "CLIENT_SECRET": "ENTER_TWITCH_APPLICATIONS_CLIENT_SECRET_API_KEY",

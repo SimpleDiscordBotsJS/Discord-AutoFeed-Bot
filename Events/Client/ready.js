@@ -1,6 +1,6 @@
 const { Client } = require("discord.js");
-const { Success } = require("../../Utilites/Logger");
-const UpdateCheck = require("../../Utilites/UpdateCheck");
+const { Success } = require("../../Utilities/Logger");
+const UpdateCheck = require("../../Utilities/UpdateCheck");
 
 module.exports = {
     name: "ready",

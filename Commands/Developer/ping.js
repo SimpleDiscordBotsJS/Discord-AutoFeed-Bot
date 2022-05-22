@@ -1,5 +1,5 @@
 const { CommandInteraction } = require("discord.js");
-const Logger = require("../../Utilites/Logger");
+const Logger = require("../../Utilities/Logger");
 
 module.exports = {
     name: "ping",

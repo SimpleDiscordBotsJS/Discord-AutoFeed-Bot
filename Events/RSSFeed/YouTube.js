@@ -1,4 +1,5 @@
 const { YOUTUBE_FEED } = require("../../Structures/config.json");
+const { Error } = require("../../Utilities/Logger");
 const Parser = require("rss-parser");
 const posts = new Parser();
 
@@ -7,7 +8,7 @@ module.exports = {
     async execute(client) {
         
         if(YOUTUBE_FEED.ENABLED == false) return;
-        if(!YOUTUBE_FEED.CHANNEL_ID) return console.log("[FEED][YOUTUBE] Channel ID not defined!");;
+        if(!YOUTUBE_FEED.CHANNEL_ID) return Error("[FEED][YOUTUBE] Channel ID not defined!");;
 
         checkOneHour();
         
@@ -19,7 +20,8 @@ module.exports = {
             let youtube = await posts.parseURL(`https://www.youtube.com/feeds/videos.xml?channel_id=UCG6QEHCBfWZOnv7UVxappyw`);
             
             const channel = await client.channels.fetch(YOUTUBE_FEED.CHANNEL_ID)
-            .catch(e => { return console.log("[FEED][YOUTUBE] The specified channel could not be determined!") });
+            .catch(e => { return Error("[FEED][YOUTUBE] The specified channel could not be determined!") });
+            if(!channel) return;
 
             youtube.items.reverse().forEach(async (item) => {
                 if(!client.db.get(`YTpostedVideos`).includes(item.id)) {

@@ -1,5 +1,5 @@
 const { DEBUG_EVENT } = require("../../Structures/config.json");
-const { Debug } = require("../../Utilites/Logger");
+const { Debug } = require("../../Utilities/Logger");
 
 module.exports = {
     name: "debug",

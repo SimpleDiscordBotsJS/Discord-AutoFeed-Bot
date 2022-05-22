@@ -1,6 +1,6 @@
 const { Client, Collection } = require("discord.js");
 const client = new Client({ intents: 32767 });
-const { Warning, Error, Success } = require("../Utilites/Logger");
+const { Warning, Error, Success } = require("../Utilities/Logger");
 const { BOT_TOKEN } = require("./config.json");
 const { promisify } = require("util");
 const { glob } = require("glob");

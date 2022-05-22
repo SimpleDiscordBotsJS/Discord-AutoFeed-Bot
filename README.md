@@ -16,9 +16,32 @@ Advantages:
 
     "DEBUG_EVENT": false,
 
-    "CNN_CHANNEL_ID": "ENTER_DISCORD_CHANNEL_ID", //required
-    "HABR_CHANNEL_ID": "ENTER_DISCORD_CHANNEL_ID", //required
-    "YOUTUBE_CHANNEL_ID": "ENTER_DISCORD_CHANNEL_ID" //required
+    "CNN_FEED": {
+        "ENABLED": false,
+
+        "CHANNEL_ID": "ENTER_DISCORD_CHANNEL_ID"
+    },
+
+    "HABR_FEED": {
+        "ENABLED": false,
+
+        "CHANNEL_ID": "ENTER_DISCORD_CHANNEL_ID"
+    },
+
+    "YOUTUBE_FEED": {
+        "ENABLED": false,
+
+        "CHANNEL_ID": "ENTER_DISCORD_CHANNEL_ID"
+    },
+
+    "TWITCH_FEED": {
+        "ENABLED": false,
+
+        "CLIENT_ID": "ENTER_TWITCH_APPLICATIONS_CLIENT_ID",
+        "CLIENT_SECRET": "ENTER_TWITCH_APPLICATIONS_CLIENT_SECRET_API_KEY",
+
+        "CHANNEL_ID": "ENTER_DISCORD_CHANNEL_ID"
+    }
  }
  ```
  

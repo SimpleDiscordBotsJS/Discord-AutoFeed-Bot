@@ -1,10 +1,14 @@
-const { YOUTUBE_CHANNEL_ID } = require("../../Structures/config.json");
+const { YOUTUBE_FEED } = require("../../Structures/config.json");
 const Parser = require("rss-parser");
 const posts = new Parser();
 
 module.exports = {
     name: "ready",
     async execute(client) {
+        
+        if(YOUTUBE_FEED.ENABLED == false) return;
+        if(!YOUTUBE_FEED.CHANNEL_ID) return console.log("[FEED][YOUTUBE] Channel ID not defined!");;
+
         checkOneHour();
         
         async function checkOneHour() {
@@ -14,11 +18,13 @@ module.exports = {
             if([null, undefined].includes(client.db.get(`YTpostedVideos`))) client.db.set(`YTpostedVideos`, []);
             let youtube = await posts.parseURL(`https://www.youtube.com/feeds/videos.xml?channel_id=UCG6QEHCBfWZOnv7UVxappyw`);
             
+            const channel = await client.channels.fetch(YOUTUBE_FEED.CHANNEL_ID)
+            .catch(e => { return console.log("[FEED][YOUTUBE] The specified channel could not be determined!") });
+
             youtube.items.reverse().forEach(async (item) => {
                 if(!client.db.get(`YTpostedVideos`).includes(item.id)) {
                     client.db.push("YTpostedVideos", item.id);
-        
-                    const channel = await client.channels.fetch(YOUTUBE_CHANNEL_ID);
+
                     const message = `**{author}** published **{title}**!\n{url}`
                         .replace(/{author}/g, item.author)
                         .replace(/{title}/g, item.title.replace(/\\(\*|_|`|~|\\)/g, '$1').replace(/(\*|_|`|~|\\)/g, '\\$1'))

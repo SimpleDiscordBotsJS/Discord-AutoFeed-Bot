@@ -1,11 +1,15 @@
 const { MessageEmbed } = require("discord.js");
-const { CNN_CHANNEL_ID } = require("../../Structures/config.json");
+const { CNN_FEED } = require("../../Structures/config.json");
 const Parser = require("rss-parser");
 const posts = new Parser();
 
 module.exports = {
     name: "ready",
     async execute(client) {
+        
+        if(CNN_FEED.ENABLED == false) return;
+        if(!CNN_FEED.CHANNEL_ID) return console.log("[FEED][CNN] Channel ID not defined!");;
+
         checkOneHour();
         
         async function checkOneHour() {
@@ -14,13 +18,14 @@ module.exports = {
 
             if([null, undefined].includes(client.db.get(`cnn_last_post_id`))) client.db.set(`cnn_last_post_id`, 0);
             let feed = await posts.parseURL(`http://rss.cnn.com/rss/edition_technology.rss`);
+
+            const channel = await client.channels.fetch(CNN_FEED.CHANNEL_ID)
+            .catch(e => { return console.log("[FEED][CNN] The specified channel could not be determined!") });
             
             feed.items.reverse().forEach(async (item) => {
                 const id = item.guid.match(/\d/g).join("");
                 if(client.db.get(`cnn_last_post_id`) < parseInt(id)) {
                     client.db.set(`cnn_last_post_id`, parseInt(id));
-                    
-                    const channel = await client.channels.fetch(CNN_CHANNEL_ID);
                     
                     const Embed = new MessageEmbed()
                         .setTitle(item.title)

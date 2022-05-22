@@ -1,11 +1,15 @@
 const { MessageEmbed } = require("discord.js");
-const { HABR_CHANNEL_ID } = require("../../Structures/config.json");
+const { HABR_FEED } = require("../../Structures/config.json");
 const Parser = require("rss-parser");
 const posts = new Parser();
 
 module.exports = {
     name: "ready",
     async execute(client) {
+
+        if(HABR_FEED.ENABLED == false) return;
+        if(!HABR_FEED.CHANNEL_ID) return console.log("[FEED][HABR] Channel ID not defined!");;
+
         checkOneHour();
         
         async function checkOneHour() {
@@ -14,13 +18,14 @@ module.exports = {
 
             if([null, undefined].includes(client.db.get(`habr_last_post_id`))) client.db.set(`habr_last_post_id`, 0);
             let feed = await posts.parseURL(`http://habrahabr.ru/rss/news`);
+
+            const channel = await client.channels.fetch(HABR_FEED.CHANNEL_ID)
+            .catch(e => { return console.log("[FEED][HABR] The specified channel could not be determined!") });
             
             feed.items.reverse().forEach(async (item) => {
                 const id = item.guid.match(/\d/g).join("");
                 if(client.db.get(`habr_last_post_id`) < parseInt(id)) {
                     client.db.set(`habr_last_post_id`, parseInt(id));
-                    
-                    const channel = await client.channels.fetch(HABR_CHANNEL_ID);
                     
                     const Embed = new MessageEmbed()
                         .setTitle(item.title)

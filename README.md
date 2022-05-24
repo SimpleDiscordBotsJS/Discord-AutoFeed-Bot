@@ -3,7 +3,7 @@ It's a template for discord bot
 
 Advantages:
  - It's a template...
- - Hendler's
+ - Handler's
  - quick.db
 
 ---

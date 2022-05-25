@@ -8,7 +8,7 @@ module.exports = {
     async execute(client) {
 
         if(TWITCH_FEED.ENABLED == false) return;
-        if(!TWITCH_FEED.CHANNEL_ID) return Error("[FEED][TWITCH] Channel ID not defined!");
+        if(!TWITCH_FEED.DISCORD_CHANNEL_ID) return Error("[FEED][TWITCH] Channel ID not defined!");
         if(!TWITCH_FEED.CLIENT_ID) return Error("[FEED][TWITCH] Client ID not defined!");
         if(!TWITCH_FEED.CLIENT_SECRET) return Error("[FEED][TWITCH] Client secret key not defined!");
 
@@ -56,7 +56,7 @@ module.exports = {
             try { post = data; } catch(e) { return Error(e); }
             if([null, undefined].includes(client.db.get(`postedStreams`))) client.db.set(`postedStreams`, 0);
 
-            const channel = await client.channels.fetch(TWITCH_FEED.CHANNEL_ID)
+            const channel = await client.channels.fetch(TWITCH_FEED.DISCORD_CHANNEL_ID)
             .catch(e => { return Error("[FEED][TWITCH] The specified channel could not be determined!") });
             if(!channel) return;
 
@@ -75,7 +75,7 @@ module.exports = {
                 channel.send({ embeds: [Embed] }).then((m) => { if(m.crosspostable) m.crosspost() });
             }
 
-            setTimeout(getTwitchAuthorization, 1000 * 60 * 10);
+            setTimeout(getTwitchAuthorization, 1000 * 60);
         }
     }
 }

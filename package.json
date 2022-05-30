@@ -1,6 +1,6 @@
 {
   "name": "discord-autofeed-bot",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "",
   "main": "./Structures/index.js",
   "scripts": {
@@ -20,6 +20,7 @@
     "ascii-table3": "^0.7.6",
     "discord.js": "^13.7.0",
     "glob": "^8.0.3",
+    "node-twitch": "^0.4.5",
     "quick.db": "^7.1.3",
     "rss-parser": "^3.12.0",
     "simple-youtube-api": "^5.2.1"

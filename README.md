@@ -31,16 +31,30 @@ Advantages:
     "YOUTUBE_FEED": {
         "ENABLED": false,
 
-        "CHANNEL_ID": "ENTER_DISCORD_CHANNEL_ID"
+        "MESSAGE": "New video: **{videoTitle}**! It was uploaded by {videoAuthorName} at {videoPubDate}! Here is the link: {videoURL}",
+
+        "YOUTUBE_CHANNELS": [ //Youtube channel name or link
+            "Pewdiepie",
+            "https://www.youtube.com/channel/UCGyqi4UW3on0jK1W5reea1w"
+        ],
+
+        "DISCORD_CHANNEL_ID": "ENTER_DISCORD_CHANNEL_ID",
+
+        "YOUTUBE_API_KEY": "YOUR_YOUTUBE_API_KEY"
     },
 
     "TWITCH_FEED": {
         "ENABLED": false,
 
-        "CLIENT_ID": "ENTER_TWITCH_APPLICATIONS_CLIENT_ID",
-        "CLIENT_SECRET": "ENTER_TWITCH_APPLICATIONS_CLIENT_SECRET_API_KEY",
+        "STREAMERS": [ //Twitch streamer name or link
+            "Wirtual",
+            "https://www.twitch.tv/shieldhub"
+        ],
 
-        "CHANNEL_ID": "ENTER_DISCORD_CHANNEL_ID"
+        "TWITCH_CLIENT_ID": "ENTER_TWITCH_APPLICATIONS_CLIENT_ID",
+        "TWITCH_CLIENT_SECRET_KEY": "ENTER_TWITCH_APPLICATIONS_CLIENT_SECRET_API_KEY",
+
+        "DISCORD_CHANNEL_ID": "ENTER_DISCORD_CHANNEL_ID"
     }
  }
  ```

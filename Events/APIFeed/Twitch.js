@@ -10,7 +10,7 @@ module.exports = {
      */
     async execute(client) {
 
-        if(TWITCH_FEED.ENABLED === false) return;
+        if(TWITCH_FEED.ENABLED === false) return Info("[FEED][TWITCH] - Disabled");
 
         if(!TWITCH_FEED.TWITCH_CLIENT_ID || TWITCH_FEED.TWITCH_CLIENT_ID == "YOUR_TWITCH_CLIENT_ID")
         return Warning("[FEED][TWITCH] Client ID not defined!");
@@ -20,6 +20,8 @@ module.exports = {
 
         if(!TWITCH_FEED.DISCORD_CHANNEL_ID || TWITCH_FEED.DISCORD_CHANNEL_ID == "YOUR_DISCORD_CHANNEL_ID")
         return Warning("[FEED][TWITCH] Channel ID not defined!");
+
+        client.db.table("feed_twitch");
 
         const twitch = new TwitchAPI({
             client_id: TWITCH_FEED.TWITCH_CLIENT_ID,
@@ -38,17 +40,17 @@ module.exports = {
          */
         async function getLastStream(twitchChannelName, channelInfo) {
             // If the streamer is not found in the database, create it
-            if([null, undefined].includes(client.db.get(`twitch_${twitchChannelName}_last_stream_id`))) {
-                client.db.set(`twitch_${twitchChannelName}_last_stream_id`, 0);
+            if([null, undefined].includes(await client.db.get(`twitch_${twitchChannelName}_last_stream_id`))) {
+                await client.db.set(`twitch_${twitchChannelName}_last_stream_id`, 0);
             }
             Info(`[${twitchChannelName}] | Getting streams...`);
-            let idInDataBase = client.db.get(`twitch_${twitchChannelName}_last_stream_id`);
+            let idInDataBase = await client.db.get(`twitch_${twitchChannelName}_last_stream_id`);
             // We write if there was a stream before
             if(idInDataBase === 0) Info(`[${twitchChannelName}] | last stream not found`);
             else Info(`[${twitchChannelName}] | last stream found`);
             // If the stream is new, we write it to the database
             if(channelInfo.id !== idInDataBase) {
-                client.db.set(`twitch_${twitchChannelName}_last_stream_id`, channelInfo.id);
+                await client.db.set(`twitch_${twitchChannelName}_last_stream_id`, channelInfo.id);
             }
             return idInDataBase;
         }

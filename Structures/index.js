@@ -9,7 +9,8 @@ const { AsciiTable3 } = require("ascii-table3");
 
 //===========================================================
 
-client.db = require("quick.db");
+const { QuickDB } = require("quick.db");
+client.db = new QuickDB();
 
 //===========================================================
 

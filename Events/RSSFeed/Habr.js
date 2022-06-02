@@ -8,7 +8,7 @@ module.exports = {
     name: "ready",
     async execute(client) {
 
-        if(HABR_FEED.ENABLED == false) return;
+        if(HABR_FEED.ENABLED == false) return Info("[FEED][HABR] - Disabled");
         if(!HABR_FEED.DISCORD_CHANNEL_ID) return Error("[FEED][HABR] Channel ID not defined!");;
 
         checkOneHour();
@@ -17,7 +17,7 @@ module.exports = {
             
             // ======================================================================== //
 
-            if([null, undefined].includes(client.db.get(`habr_last_post_id`))) client.db.set(`habr_last_post_id`, 0);
+            if([null, undefined].includes(await client.db.get(`habr_last_post_id`))) await client.db.set(`habr_last_post_id`, 0);
             let feed = await posts.parseURL(`http://habrahabr.ru/rss/news`);
 
             const channel = await client.channels.fetch(HABR_FEED.DISCORD_CHANNEL_ID)
@@ -26,8 +26,8 @@ module.exports = {
             
             feed.items.reverse().forEach(async (item) => {
                 const id = item.guid.match(/\d/g).join("");
-                if(client.db.get(`habr_last_post_id`) < parseInt(id)) {
-                    client.db.set(`habr_last_post_id`, parseInt(id));
+                if(await client.db.get(`habr_last_post_id`) < parseInt(id)) {
+                    await client.db.set(`habr_last_post_id`, parseInt(id));
                     
                     const Embed = new MessageEmbed()
                         .setTitle(item.title)

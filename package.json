@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/SimpleDiscordBotsJS/Discord-AutoFeed-Bot#readme",
   "dependencies": {
-    "ascii-table3": "^0.7.7",
+    "ascii-table3": "^0.8.2",
     "better-sqlite3": "^7.6.2",
     "discord.js": "^13.8.0",
     "glob": "^8.0.3",
